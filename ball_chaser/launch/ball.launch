@@ -1,0 +1,8 @@
+<launch>
+
+	<!--Drive_bot Node is added to launch file-->
+	<node name="drive_bot" pkg="ball_chaser" type="drive_bot" output="screen"/>
+	
+	<!--Process_Image node is launched-->
+	<node name="process_image" pkg="ball_chaser" type="process_image" output="screen"/>
+</launch>
