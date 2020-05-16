@@ -23,7 +23,7 @@ class Process_Img_Client_Call
 
     void Process_Img_Callback(const sensor_msgs::Image img)
     {
-       
+           
             int min_col = img.step;
             int max_col = 0;
             int mid_point =0;
@@ -33,9 +33,9 @@ class Process_Img_Client_Call
             cmd_pos.request.angular_z = 0;
 
             //Finding the column limits of the white ball
-            for(int i=0; i<img.height*img.step; i++)
+            for(int i=0; i<img.height*img.step; i+=3)
             {
-                if(img.data[i] == 255)
+                if(img.data[i]==255 && img.data[i+1]== 255 && img.data[i+2]==255)
                 {
                     min_col = std::min(min_col, i%(int)img.step);
                     max_col = std::max(max_col, i%(int)img.step);
