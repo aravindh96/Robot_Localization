@@ -31,6 +31,7 @@ class Process_Img_Client_Call
             ball_chaser::DriveToPosition cmd_pos;
             cmd_pos.request.linear_x = 0;
             cmd_pos.request.angular_z = 0;
+            bool ball_found = false;
 
             //Finding the column limits of the white ball
             for(int i=0; i<img.height*img.step; i+=3)
@@ -39,13 +40,14 @@ class Process_Img_Client_Call
                 {
                     min_col = std::min(min_col, i%(int)img.step);
                     max_col = std::max(max_col, i%(int)img.step);
+                    ball_found = true;
             
                 }
             }
 
             mid_point = (min_col + max_col)/2;
 
-            if(mid_point == img.step/2) //White Ball not in the scene
+            if(!ball_found) //White Ball not in the scene
             {
                 cmd_pos.request.angular_z = 1;
             }
@@ -67,7 +69,8 @@ class Process_Img_Client_Call
                     cmd_pos.request.angular_z = -1;
 
             }
-           
+
+            ROS_INFO("DriveToPostion Service called Linear Velocity: %1.2f , Angular Velocity: %1.2f",(float)cmd_pos.request.linear_x, (float)cmd_pos.request.angular_z);
             //Calling the service /ball_chaser/command_bot
             if(!client_.call(cmd_pos))
             {
