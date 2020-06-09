@@ -30,7 +30,7 @@ From the below images it can be seen that even when the initial pose of the robo
 </p>
 
 ## Navigation
-Although the focus of the project is not localization, we have implemented a navigation algorithm using move_base package. The robot is able to generate a global plan and in some cases reach the goal point, although it takes a circuitous route. Sometimes it hits an obstacle and gets stuck, but thats expected since we have not running any obstacle avoidance nodes.
+Although the focus of the project is not localization, we have implemented a navigation algorithm using move_base package. The robot is able to generate a global plan and in some cases reach the goal point, although it takes a circuitous route. Sometimes it hits an obstacle and gets stuck, but thats expected since we are not running any obstacle avoidance nodes.
 <p align="center">
 <img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Navigation_1.gif" alt="drawing" width="400"/>
 <img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Navigation_2.gif" alt="drawing" width="400"/>
