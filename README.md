@@ -5,7 +5,7 @@ This project demonstrates a robot localization using the __Adaptive Monte Carlo 
 <img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Localization.gif" alt="drawing" width="500" height="300"/> 
 </p>
 
-AMCL is a __particle filter localization__ algorithm
+AMCL is a __particle filter localization__ algorithm.
 The Extended Kalman Filter(EKF) algorithm is restricted by a __linear Gaussian state based assumption__, this is not the case for AMCL as it can model any kind of distribution. AMCL is capable of solving the __local, global and kidnapped robot__ localization problems.
 
 AMCL works by __uniformly and randomly distributing particles__ throughout the __known map__. These particles represent the potential positions of the robot and its orientation. Each particle has a __weight__ associated with it which determines the level of confidence or __probability of being the true position__. Through several iterations of the algorithm, as the robot moves around, the particles are updated with the respective motion, and the weights are updated by calculating __the error between the distance of each particle to a set of landmarks and the distance of the robot to the same set of landmarks.__ Based on these weights, the set of particles is resampled using `systematic resampling`. After a few iterations the number of particles will reduce and __eventually converge__ to provide a __confident estimate__ of the robot position.
