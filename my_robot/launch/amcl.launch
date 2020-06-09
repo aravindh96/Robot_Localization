@@ -1,0 +1,56 @@
+<launch>
+	<arg name="map_file" default="$(find my_robot)/maps/map.yaml"/>	
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+	<node name="amcl" pkg="amcl" type="amcl" output="screen">
+		
+		<!--Specifies the frame of the odometry, robot and the global map-->
+		<param name="odom_frame_id" value="odom"/>
+  		<param name="base_frame_id" value="robot_footprint"/>
+  		<param name="global_frame_id" value="map"/>
+		<!--Specifies type of motion model, either differential drive or omnidirectional-->
+		<param name="odom_model_type" value="diff-corrected"/>
+		<!-- <param name="tf_broadcast" value="true" /> -->
+		<param name="transform_tolerance" value="0.2" />
+		<!--Setting the initial position of the robot-->
+		<param name="initial_pose_x" value="0"/>
+		<param name="initial_pose_y" value="0"/>
+		<param name="initial_pose_a" value="-1.57"/>
+		<!--Laser scan properties-->
+		<param name="laser_min_range" value="-1" />
+		<param name="laser_max_range" value="-1" />
+		<param name="laser_max_beams" value="50" />
+		<!--Odometry Noise parameters-->
+		<param name="odom_alpha1" value="0.00" />
+		<param name="odom_alpha2" value="0.00" />
+		<param name="odom_alpha3" value="0.00" />
+		<param name="odom_alpha4" value="0.00" />
+		<!-- Laser model weights -->
+		<!-- <param name="laser_z_hit" value="0.95" />
+		<param name="laser_z_rand" value="0.1" />
+		<param name="laser_z_short" value="0.5"/>
+		<param name="laser_z_max" value = "0.5"/> -->
+		<!--Laser scan particle properties-->
+		<!-- <param name="min_particles" value="100"/>
+		<param name="max_particles" value="1000"/>
+		<param name="update_mid_d" value="0.1" />
+		<param name="update_mid_a" value="0.1" /> -->
+		<!--Distance for obstacle inflation on the map-->
+		<!-- <param name="laser_likelihood_max_dist" value="4.0"/> -->
+
+	</node>
+	<!-- <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map odom 100"/> -->
+
+	<node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
+		
+		<!--Selecting the global and local planner-->
+  		<param name="base_global_planner" value="global_planner/GlobalPlanner" />
+		<param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
+
+		<!--Loading the configuration files containing parameters for the planners-->
+		<rosparam file="$(find my_robot)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+		<rosparam file="$(find my_robot)/config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+		<rosparam file="$(find my_robot)/config/local_costmap_params.yaml" command="load" />
+		<rosparam file="$(find my_robot)/config/global_costmap_params.yaml" command="load" />
+		<rosparam file="$(find my_robot)/config/base_local_planner_params.yaml" command="load" />	
+	</node>
+</launch>
