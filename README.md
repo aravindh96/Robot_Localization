@@ -7,6 +7,11 @@ The Extended Kalman Filter(EKF) algorithm is restricted by a __linear Gaussian s
 
 AMCL works by __uniformly and randomly distributing particles__ throughout the __known map__. These particles represent the potential positions of the robot and its orientation. Each particle has a __weight__ associated with it which determines the level of confidence or __probability of being the true position__. Through several iterations of the algorithm, as the robot moves around, the particles are updated with the respective motion, and the weights are updated by calculating __the error between the distance of each particle to a set of landmarks and the distance of the robot to the same set of landmarks.__ Based on these weights, the set of particles is resampled using `systematic resampling`. After a few iterations the number of particles will reduce and __eventually converge__ to provide a __confident estimate__ of the robot position.
 
+<p align="center">
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Top_view_map.png" alt="drawing" width="400"/> <img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/map.jpg" alt="drawing" width="400"/> 
+</p>
+
+
 ## Prerequisites:
 1. [Ubuntu](https://ubuntu.com/download)
 2. [Robot Operating System](http://wiki.ros.org/ROS/Installation) (ROS)
