@@ -1,18 +1,39 @@
 # Adaptive Monte Carlo Localization
 
 This project demonstrates a robot localization using the __Adaptive Monte Carlo Localization__ algorithm. Localization task is implemented on a custom turtlebot having a Hokuyo laser scanner in a custom map built using __Gazebo__.
+<p align="center">
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Localization.gif" alt="drawing" width="500" height="300"/> 
+</p>
 
 AMCL is a __particle filter localization__ algorithm
 The Extended Kalman Filter(EKF) algorithm is restricted by a __linear Gaussian state based assumption__, this is not the case for AMCL as it can model any kind of distribution. AMCL is capable of solving the __local, global and kidnapped robot__ localization problems.
 
 AMCL works by __uniformly and randomly distributing particles__ throughout the __known map__. These particles represent the potential positions of the robot and its orientation. Each particle has a __weight__ associated with it which determines the level of confidence or __probability of being the true position__. Through several iterations of the algorithm, as the robot moves around, the particles are updated with the respective motion, and the weights are updated by calculating __the error between the distance of each particle to a set of landmarks and the distance of the robot to the same set of landmarks.__ Based on these weights, the set of particles is resampled using `systematic resampling`. After a few iterations the number of particles will reduce and __eventually converge__ to provide a __confident estimate__ of the robot position.
 
+## Map Generation
+
+The map of the world that we created needs to be given as input to the AMCL algorithm, so using pgm_map_creator node. 
 <p align="center">
 <img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Top_view_map.png" alt="drawing" width="300"/> <img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/map.jpg" alt="drawing" width="300"/> 
 </p>
 
+## Localization Results
+
+From the below images it can be seen that even when the initial pose of the robot is not exactly accurate (off by upto 1-2 meters) the robot is able to localize itself within a few iterations. 
 <p align="center">
-<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Top_view_map.png" alt="drawing" width="300"/> <img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/map.jpg" alt="drawing" width="300"/> 
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Local_1.png" alt="drawing" width="400" height ="250"/> 
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Local_2.png" alt="drawing" width="300" height ="250"/> 
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Local_3.png" alt="drawing" width="400" height ="250"/> 
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Local_4.png" alt="drawing" width="300" height ="250"/> 
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Local_5.png" alt="drawing" width="350" height ="250"/> 
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Local_6.png" alt="drawing" width="350" height ="250"/>
+</p>
+
+## Navigation
+Although the focus of the project is not localization, we have implemented a navigation algorithm using move_base package. The robot is able to generate a global plan and in some cases reach the goal point, although it takes a circuitous route. Sometimes it hits an obstacle and gets stuck, but thats expected since we have not running any obstacle avoidance nodes.
+<p align="center">
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Navigation_1.gif" alt="drawing" width="400"/>
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Navigation_2.gif" alt="drawing" width="400"/>
 </p>
 
 
