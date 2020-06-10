@@ -36,6 +36,12 @@ Although the focus of the project is not localization, we have implemented a nav
 <img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/Navigation_2.gif" alt="drawing" width="400"/>
 </p>
 
+## RQT_Graph and tf Tree
+
+<p align="center">
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/rqt_graph.png" alt="drawing" />
+<img src="https://github.com/aravindh96/Robot_Localization/blob/master/Images/tf_tree.png" alt="drawing"/>
+</p>
 
 ## Prerequisites:
 1. [Ubuntu](https://ubuntu.com/download)
